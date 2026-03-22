@@ -5,7 +5,7 @@ const File = require('./models/File');
 const User = require('./models/User');
 
 async function seed() {
-  await mongoose.connect('mongodb+srv://Harish:codegalaxy@cluster0.drisb4r.mongodb.net/?appName=Cluster0/codegalaxy');
+  await mongoose.connect('mongodb+srv://Harish:codegalaxy@cluster0.drisb4r.mongodb.net/codegalaxy');
   console.log('Connected to MongoDB for seeding...');
 
   // wipe existing data
