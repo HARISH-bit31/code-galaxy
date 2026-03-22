@@ -21,7 +21,7 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
   // fetch overview
   useEffect(() => {
     if (!activeSubject) {
-      fetch('http://localhost:5000/api/overview')
+      fetch('https://code-galaxy-backend1.onrender.com/api/overview')
         .then(res => res.json())
         .then(data => setOverview(data));
       setActiveFolder(null);
@@ -33,10 +33,10 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
     if (activeSubject) {
       setActiveFolder(null);
       setFilter('all');
-      fetch(`http://localhost:5000/api/folders/${activeSubject.id}?userId=${user?.id || ''}`)
+      fetch(`https://code-galaxy-backend1.onrender.com/api/folders/${activeSubject.id}?userId=${user?.id || ''}`)
         .then(res => res.json())
         .then(data => setFolders(data));
-      fetch(`http://localhost:5000/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`)
+      fetch(`https://code-galaxy-backend1.onrender.com/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`)
         .then(res => res.json())
         .then(data => setSubjectFiles(data));
     }
@@ -49,14 +49,14 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
     setCreateName('');
     
     if (activeFolder) {
-      fetch(`http://localhost:5000/api/files/${activeFolder.id}?userId=${user?.id || ''}`)
+      fetch(`https://code-galaxy-backend1.onrender.com/api/files/${activeFolder.id}?userId=${user?.id || ''}`)
         .then(res => res.json())
         .then(data => setFiles(data));
-      fetch(`http://localhost:5000/api/folders/${activeFolder.id}?userId=${user?.id || ''}`)
+      fetch(`https://code-galaxy-backend1.onrender.com/api/folders/${activeFolder.id}?userId=${user?.id || ''}`)
         .then(res => res.json())
         .then(data => setSubFolders(data));
       if (activeSubject?.name === 'FST') {
-        fetch(`http://localhost:5000/api/folder-depth/${activeFolder.id}`)
+        fetch(`https://code-galaxy-backend1.onrender.com/api/folder-depth/${activeFolder.id}`)
           .then(res => res.json())
           .then(data => setDepth(data.depth));
       } else {
@@ -72,23 +72,23 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
     const prop = param === 'favorite' ? 'isFavorite' : 'isImportant';
     setFiles(prev => prev.map(f => f.id === id ? { ...f, [prop]: !f[prop] } : f));
     setSubjectFiles(prev => prev.map(f => f.id === id ? { ...f, [prop]: !f[prop] } : f));
-    await fetch(`http://localhost:5000/api/files/${id}/${param}`, { method: 'PATCH' });
+    await fetch(`https://code-galaxy-backend1.onrender.com/api/files/${id}/${param}`, { method: 'PATCH' });
   };
 
   const doDelete = async () => {
     if (!deleting) return;
     const { type, id } = deleting;
-    await fetch(`http://localhost:5000/api/${type}s/${id}`, { method: 'DELETE' });
+    await fetch(`https://code-galaxy-backend1.onrender.com/api/${type}s/${id}`, { method: 'DELETE' });
     setDeleting(null);
     if (type === 'folder') {
       if (activeFolder) {
-        fetch(`http://localhost:5000/api/folders/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubFolders);
+        fetch(`https://code-galaxy-backend1.onrender.com/api/folders/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubFolders);
       } else {
-        fetch(`http://localhost:5000/api/folders/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFolders);
+        fetch(`https://code-galaxy-backend1.onrender.com/api/folders/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFolders);
       }
     } else {
-      if (activeFolder) fetch(`http://localhost:5000/api/files/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFiles);
-      if (activeSubject && !activeFolder) fetch(`http://localhost:5000/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubjectFiles);
+      if (activeFolder) fetch(`https://code-galaxy-backend1.onrender.com/api/files/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFiles);
+      if (activeSubject && !activeFolder) fetch(`https://code-galaxy-backend1.onrender.com/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubjectFiles);
     }
   };
 
@@ -101,7 +101,7 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
 
     if (type === 'folder') {
       const parentId = activeFolder ? activeFolder.id : activeSubject.id;
-      const res = await fetch('http://localhost:5000/api/folders', {
+      const res = await fetch('https://code-galaxy-backend1.onrender.com/api/folders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: createName, parentId, userId: user?.id })
@@ -113,7 +113,7 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
         setFolders(prev => [...prev, newFolder]);
       }
     } else if (type === 'file') {
-      const res = await fetch('http://localhost:5000/api/files', {
+      const res = await fetch('https://code-galaxy-backend1.onrender.com/api/files', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: createName, folderId: activeFolder.id, userId: user?.id })
@@ -154,10 +154,10 @@ export default function MainContent({ activeSubject, onBackToOverview, user }) {
   };
 
   const deleteFromViewer = async (file) => {
-    await fetch(`http://localhost:5000/api/files/${file.id}`, { method: 'DELETE' });
+    await fetch(`https://code-galaxy-backend1.onrender.com/api/files/${file.id}`, { method: 'DELETE' });
     setViewing(null);
-    if (activeFolder) fetch(`http://localhost:5000/api/files/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFiles);
-    if (activeSubject) fetch(`http://localhost:5000/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubjectFiles);
+    if (activeFolder) fetch(`https://code-galaxy-backend1.onrender.com/api/files/${activeFolder.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setFiles);
+    if (activeSubject) fetch(`https://code-galaxy-backend1.onrender.com/api/subject-files/${activeSubject.id}?userId=${user?.id || ''}`).then(r => r.json()).then(setSubjectFiles);
   };
 
   const saveFile = (fileId, newContent) => {

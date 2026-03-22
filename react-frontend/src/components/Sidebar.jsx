@@ -7,7 +7,7 @@ export default function Sidebar({ activeSubject, setActiveSubject, onOpenSearch,
   const [confirmingLogout, setConfirmingLogout] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/subjects?userId=${user?.id || ''}`)
+    fetch(`https://code-galaxy-backend1.onrender.com/api/subjects?userId=${user?.id || ''}`)
       .then(res => res.json())
       .then(data => setSubjects(data));
   }, [user]);

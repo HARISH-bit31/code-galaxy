@@ -31,7 +31,7 @@ export default function CodeViewer({ file, onBack, onToggle, onDelete, onSave })
 
   const save = async () => {
     try {
-      await fetch(`http://localhost:5000/api/files/${file.id}/content`, {
+      await fetch(`https://code-galaxy-backend1.onrender.com/api/files/${file.id}/content`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content })

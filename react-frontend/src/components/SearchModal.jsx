@@ -14,7 +14,7 @@ export default function SearchModal({ onClose, user }) {
 
     const timer = setTimeout(() => {
       setLoading(true);
-      fetch(`http://localhost:5000/api/search?q=${encodeURIComponent(query)}&userId=${user?.id || ''}`)
+      fetch(`https://code-galaxy-backend1.onrender.com/api/search?q=${encodeURIComponent(query)}&userId=${user?.id || ''}`)
         .then(res => res.json())
         .then(data => {
           setResults(data);
