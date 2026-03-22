@@ -4,15 +4,26 @@ const connectDB = require('./db');
 const apiRoutes = require('./routes/api');
 
 const app = express();
+
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
-  app.use('/api', apiRoutes);
-
-  app.listen(PORT, () => {
-    console.log(`Backend server running on port ${PORT}`);
-  });
+// health check route
+app.get("/", (req, res) => {
+  res.send("Backend is running");
 });
+
+// routes
+app.use('/api', apiRoutes);
+
+// start server FIRST
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// then connect DB
+connectDB()
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));

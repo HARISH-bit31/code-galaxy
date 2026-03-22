@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
 
   saveFile() {
     if (!this.viewFile) return;
-    this.http.put(`http://localhost:5000/api/files/${this.viewFile.id}/content`, { content: this.editorContent }).subscribe(() => {
+    this.http.put(`https://code-galaxy-backend1.onrender.com/api/files/${this.viewFile.id}/content`, { content: this.editorContent }).subscribe(() => {
       this.viewFile.content = this.editorContent;
       this.files = this.files.map(f => f.id === this.viewFile.id ? { ...f, content: this.editorContent } : f);
       this.subjectFiles = this.subjectFiles.map(f => f.id === this.viewFile.id ? { ...f, content: this.editorContent } : f);
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
 
     if (type === 'folder') {
       const parentId = this.activeFolder ? this.activeFolder.id : this.activeSubject.id;
-      this.http.post('http://localhost:5000/api/folders', { name: this.createName, parentId, userId: this.user?.id }).subscribe((newFolder: any) => {
+      this.http.post('https://code-galaxy-backend1.onrender.com/api/folders', { name: this.createName, parentId, userId: this.user?.id }).subscribe((newFolder: any) => {
         if (this.activeFolder) {
           this.subFolders = [...this.subFolders, newFolder];
         } else {
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
         this.cdr.detectChanges();
       });
     } else if (type === 'file') {
-      this.http.post('http://localhost:5000/api/files', { name: this.createName, folderId: this.activeFolder.id, userId: this.user?.id }).subscribe((newFile: any) => {
+      this.http.post('https://code-galaxy-backend1.onrender.com/api/files', { name: this.createName, folderId: this.activeFolder.id, userId: this.user?.id }).subscribe((newFile: any) => {
         this.files = [...this.files, newFile];
         this.subjectFiles = [...this.subjectFiles, newFile];
         this.cdr.detectChanges();
@@ -123,14 +123,14 @@ export class AppComponent implements OnInit {
   deleteFromViewer() {
     if (!this.viewFile) return;
     const id = this.viewFile.id;
-    this.http.delete(`http://localhost:5000/api/files/${id}`).subscribe(() => {
+    this.http.delete(`https://code-galaxy-backend1.onrender.com/api/files/${id}`).subscribe(() => {
       this.confirmingDelete = false;
       this.viewFile = null;
       if (this.activeFolder) {
-        this.http.get<any[]>(`http://localhost:5000/api/files/${this.activeFolder.id}?userId=${this.user?.id || ''}`).subscribe(d => this.files = d);
+        this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/files/${this.activeFolder.id}?userId=${this.user?.id || ''}`).subscribe(d => this.files = d);
       }
       if (this.activeSubject) {
-        this.http.get<any[]>(`http://localhost:5000/api/subject-files/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe(d => this.subjectFiles = d);
+        this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/subject-files/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe(d => this.subjectFiles = d);
       }
     });
   }
@@ -138,18 +138,18 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.http.get<any>('http://localhost:5000/api/overview').subscribe((data: any) => this.overview = data);
+    this.http.get<any>('https://code-galaxy-backend1.onrender.com/api/overview').subscribe((data: any) => this.overview = data);
   }
 
   loadSubjects() {
     if (this.user?.id) {
-      this.http.get<any[]>(`http://localhost:5000/api/subjects?userId=${this.user.id}`).subscribe((data: any[]) => { this.subjects = data; this.cdr.detectChanges(); });
+      this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/subjects?userId=${this.user.id}`).subscribe((data: any[]) => { this.subjects = data; this.cdr.detectChanges(); });
     }
   }
 
   login(e: Event) {
     e.preventDefault();
-    this.http.post<any>('http://localhost:5000/api/login', { email: this.email, password: this.password })
+    this.http.post<any>('https://code-galaxy-backend1.onrender.com/api/login', { email: this.email, password: this.password })
       .subscribe({
         next: (data: any) => {
           if (data.success) {
@@ -177,8 +177,8 @@ export class AppComponent implements OnInit {
     this.folders = [];
     this.subjectFiles = [];
     if (sub) {
-      this.http.get<any[]>(`http://localhost:5000/api/folders/${sub.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.folders = data; this.cdr.detectChanges(); });
-      this.http.get<any[]>(`http://localhost:5000/api/subject-files/${sub.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.subjectFiles = data; this.cdr.detectChanges(); });
+      this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/folders/${sub.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.folders = data; this.cdr.detectChanges(); });
+      this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/subject-files/${sub.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.subjectFiles = data; this.cdr.detectChanges(); });
     }
   }
 
@@ -186,10 +186,10 @@ export class AppComponent implements OnInit {
     this.activeFolder = folder;
     this.creating = false;
     if (folder) {
-      this.http.get<any[]>(`http://localhost:5000/api/files/${folder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.files = data; this.cdr.detectChanges(); });
-      this.http.get<any[]>(`http://localhost:5000/api/folders/${folder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.subFolders = data; this.cdr.detectChanges(); });
+      this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/files/${folder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.files = data; this.cdr.detectChanges(); });
+      this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/folders/${folder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => { this.subFolders = data; this.cdr.detectChanges(); });
       if (this.activeSubject?.name === 'FST') {
-        this.http.get<any>(`http://localhost:5000/api/folder-depth/${folder.id}`).subscribe((data: any) => { this.depth = data.depth; this.cdr.detectChanges(); });
+        this.http.get<any>(`https://code-galaxy-backend1.onrender.com/api/folder-depth/${folder.id}`).subscribe((data: any) => { this.depth = data.depth; this.cdr.detectChanges(); });
       } else {
         this.depth = 0;
       }
@@ -223,7 +223,7 @@ export class AppComponent implements OnInit {
       this.viewFile = { ...this.viewFile, [prop]: !this.viewFile[prop] };
     }
 
-    this.http.patch(`http://localhost:5000/api/files/${id}/${param}`, {}).subscribe();
+    this.http.patch(`https://code-galaxy-backend1.onrender.com/api/files/${id}/${param}`, {}).subscribe();
     this.cdr.detectChanges();
   }
 
@@ -235,13 +235,13 @@ export class AppComponent implements OnInit {
   doDelete() {
     if (!this.deleting) return;
     const { type, id } = this.deleting;
-    this.http.delete(`http://localhost:5000/api/${type}s/${id}`).subscribe(() => {
+    this.http.delete(`https://code-galaxy-backend1.onrender.com/api/${type}s/${id}`).subscribe(() => {
       this.deleting = null;
       if (type === 'folder') {
-        this.http.get<any[]>(`http://localhost:5000/api/folders/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.folders = data);
+        this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/folders/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.folders = data);
       } else {
-        if (this.activeFolder) this.http.get<any[]>(`http://localhost:5000/api/files/${this.activeFolder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.files = data);
-        if (this.activeSubject && !this.activeFolder) this.http.get<any[]>(`http://localhost:5000/api/subject-files/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.subjectFiles = data);
+        if (this.activeFolder) this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/files/${this.activeFolder.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.files = data);
+        if (this.activeSubject && !this.activeFolder) this.http.get<any[]>(`https://code-galaxy-backend1.onrender.com/api/subject-files/${this.activeSubject.id}?userId=${this.user?.id || ''}`).subscribe((data: any[]) => this.subjectFiles = data);
       }
     });
   }
@@ -255,7 +255,7 @@ export class AppComponent implements OnInit {
     this.isSearching = true;
     clearTimeout(this.searchTimer);
     this.searchTimer = setTimeout(() => {
-      this.http.get<any>(`http://localhost:5000/api/search?q=${encodeURIComponent(this.query)}&userId=${this.user?.id || ''}`)
+      this.http.get<any>(`https://code-galaxy-backend1.onrender.com/api/search?q=${encodeURIComponent(this.query)}&userId=${this.user?.id || ''}`)
         .subscribe((data: any) => {
           this.searchResults = data;
           this.isSearching = false;
