@@ -1,0 +1,16 @@
+
+> angular-frontend@0.0.0 build
+> ng build
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mmain-MKQRCH4L.js[39m   [2m | [22m[2mmain[22m         [2m | [22m[36m230.97 kB[39m[2m | [22m               [36m57.63 kB[39m
+[32mstyles-74RLU4QZ.css[39m[2m | [22m[2mstyles[22m       [2m | [22m  [36m7.65 kB[39m[2m | [22m                [36m1.28 kB[39m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m[2m | [22m[1m238.62 kB[22m[2m | [22m               [1m58.91 kB[22m
+
+Application bundle generation complete. [4.327 seconds] - 2026-03-19T06:39:03.159Z
+
+Output location: C:\Users\Welcome\Documents\Code Galaxy\angular-frontend\dist\angular-frontend
+

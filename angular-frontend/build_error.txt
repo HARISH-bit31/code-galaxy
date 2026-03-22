@@ -1,0 +1,60 @@
+
+> angular-frontend@0.0.0 build
+> ng build
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [3.162 seconds] - 2026-03-19T06:36:19.259Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'name' does not exist on type 'never'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.component.html:300:54:
+[37m      300 │ ...e="font-weight: 600;">{{ sub.[32mname[37m }}<br><span style="font-size...
+          ╵                                 [32m~~~~[0m
+
+  Error occurs in the template of component AppComponent.
+
+    src/app/app.component.ts:11:15:
+[37m      11 │   templateUrl: [32m'./app.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'description' does not exist on type 'never'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.component.html:300:149:
+[37m      300 │ ...text-grey); font-weight: 400;">{{ sub.[32mdescription[37m }}</span></div>
+          ╵                                          [32m~~~~~~~~~~~[0m
+
+  Error occurs in the template of component AppComponent.
+
+    src/app/app.component.ts:11:15:
+[37m      11 │   templateUrl: [32m'./app.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'name' does not exist on type 'never'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.component.html:306:57:
+[37m      306 │ ...         <div style="font-weight: 600;">📁 {{ fo[32ml.na[37mme }}</div>
+          ╵                                                   [32m~~~~[0m
+
+  Error occurs in the template of component AppComponent.
+
+    src/app/app.component.ts:11:15:
+[37m      11 │   templateUrl: [32m'./app.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'name' does not exist on type 'never'.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/app.component.html:312:57:
+[37m      312 │ ...         <div style="font-weight: 600;">📄 {{ fi[32ml.na[37mme }}</div>
+          ╵                                                   [32m~~~~[0m
+
+  Error occurs in the template of component AppComponent.
+
+    src/app/app.component.ts:11:15:
+[37m      11 │   templateUrl: [32m'./app.component.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
